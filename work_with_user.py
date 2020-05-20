@@ -1,6 +1,7 @@
 from math import sqrt
 import puzzle
 import work_with_file
+from time import perf_counter
 
 
 def accept_from_user():
@@ -28,13 +29,16 @@ def cli_to_cli():
     check_puzzle = puzzle.CheckPuzzle(final_puzzle)
     game = puzzle.Puzzle(final_puzzle)
     tree_game = puzzle.GameTree(game)
+    tok = perf_counter()
     solution = tree_game.solve()
+    tic = perf_counter()
     print('Solution:\n')
-    step = 0
+    step = -1
     for state in solution:
         print(state.pretty_print())
         step += 1
     print('steps:', step)
+    print("time:", tic - tok)
 
 
 def cli_to_file():
@@ -47,14 +51,13 @@ def cli_to_file():
     solution = tree_game.solve()
     out_file = input("Input filename: ")
     str_solution = 'SOLUTION:\n'
-    step = 0
+    step = -1
     for state in solution:
         str_solution += state.pretty_print()
         str_solution += '\n'
         step += 1
     str_solution += 'steps:' + str(step)
     work_with_file.write_puzzle(out_file, str_solution)
-
 
 
 def file_to_cli():
@@ -67,12 +70,11 @@ def file_to_cli():
     tree_game = puzzle.GameTree(game)
     solution = tree_game.solve()
     print('Solution:\n')
-    step = 0
+    step = -1
     for state in solution:
         print(state.pretty_print())
         step += 1
     print('steps:', step)
-
 
 
 def file_to_file():
@@ -86,7 +88,7 @@ def file_to_file():
     solution = tree_game.solve()
     out_file = input("Input filename to write: ")
     str_solution = 'SOLUTION:\n'
-    step = 0
+    step = -1
     for state in solution:
         str_solution += state.pretty_print()
         str_solution += '\n'

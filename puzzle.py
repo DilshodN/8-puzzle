@@ -1,27 +1,30 @@
 from copy import deepcopy
 from collections import deque
+from time import perf_counter
+
+
+most_hard = [[8, 0, 6], [5, 4, 7], [2, 3, 1]]  # 30 moves
 
 
 class CheckPuzzle:
     def __init__(self, puzzle: list):
         self.puzzle = puzzle
         self.len = len(puzzle)
-        self.goal = self.make_a_goal()
+        if self.len == 3:
+            self.goal = [[1, 2, 3],
+                         [4, 5, 6],
+                         [7, 8, 0]]
+        elif self.len == 4:
+            self.goal = [[1, 2, 3, 4],
+                         [5, 6, 7, 8],
+                         [9, 10, 11, 12],
+                         [13, 14, 15, 0]]
         if not self.is_valid():
-            raise TypeError("Puzzle is not valid")  # какой тип ошибки кидать?
+            raise TypeError("Puzzle is not valid")
         elif not self.is_solvable():
-            raise Exception("Unsolvable puzzle")  # какой тип ошибки кидать?
+            raise Exception("Unsolvable puzzle")
 
-    def make_a_goal(self):
-        numbers = [i for i in range(1, self.len * self.len)] + [0]
-        goal = []
-        m = 0
-        n = self.len
-        for i in range(self.len):
-            goal.append(numbers[m:n])
-            m = n
-            n += self.len
-        return goal
+    #  создай ф-ию check
 
     def sum_of_numbers(self) -> int:
         return sum(self.convert_to_1d(self.goal))
@@ -70,18 +73,15 @@ class Puzzle:
     def __init__(self, board: list):
         self.board = board
         self.len = len(board)
-        self.goal = self.make_a_goal()
-
-    def make_a_goal(self):
-        numbers = [i for i in range(1, self.len * self.len)] + [0]
-        goal = []
-        m = 0
-        n = self.len
-        for i in range(self.len):
-            goal.append(numbers[m:n])
-            m = n
-            n += self.len
-        return goal
+        if self.len == 3:
+            self.goal = [[1, 2, 3],
+                         [4, 5, 6],
+                         [7, 8, 0]]
+        elif self.len == 4:
+            self.goal = [[1, 2, 3, 4],
+                         [5, 6, 7, 8],
+                         [9, 10, 11, 12],
+                         [13, 14, 15, 0]]
 
     def print_matrix(self) -> str:
         output = ''
@@ -127,8 +127,7 @@ class Puzzle:
         return moving_board
 
     def solved(self) -> bool:
-        N = self.len * self.len
-        return str(self) == ''.join(map(str, range(1, N))) + '0'
+        return self.board == self.goal
 
     def __str__(self) -> str:
         return ''.join(map(str, self))
@@ -195,9 +194,27 @@ class GameTree:
 
             for move in node.all_moves():
                 moved = node.make_a_move(move)
-                new_node = Puzzle(moved)
-                child = Node(new_node, node)
+                child = Node(Puzzle(moved), node)
 
                 if child.state() not in seen:
                     queue.append(child)
                     seen.add(child.state())
+#
+#
+# def main():
+#     a = [[5, 4, 3], [0, 7, 2], [6, 1, 8]]
+#     c = Puzzle(a)
+#     d = GameTree(c)
+#     tic = perf_counter()
+#     p = d.solve()
+#     toc = perf_counter()
+#     step = 0
+#     for i in p:
+#         print(i.pretty_print())
+#         step += 1
+#     print(step)
+#     print(toc-tic)
+#
+#
+# if __name__ == "__main__":
+#     main()
