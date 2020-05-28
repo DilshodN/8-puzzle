@@ -1,7 +1,11 @@
+# ------------------ ДОРАБОТАТЬ!!!чтобы было красиво
+
 from math import sqrt
 import puzzle
 import work_with_file
 from time import perf_counter
+from GameTree import *
+from CheckPuzzle import *
 
 
 def accept_from_user():
@@ -11,7 +15,7 @@ def accept_from_user():
     third_line = input("Enter 3-rd line of a puzzle:\n").split(" ")  # ['3', '2', '4']
     input_puzzle = first_line + second_line + third_line
     int_puzzle = list(map(int, input_puzzle))
-    lenght = (len(int_puzzle))
+    lenght = len(int_puzzle)
     final_puzzle = []
     m = 0
     n = int(sqrt(lenght))
@@ -26,9 +30,10 @@ def cli_to_cli():
     print("CLI->CLI")
     final_puzzle = accept_from_user()
     print("Wait...\n")
-    check_puzzle = puzzle.CheckPuzzle(final_puzzle)
-    game = puzzle.Puzzle(final_puzzle)
-    tree_game = puzzle.GameTree(game)
+    check_puzzle = CheckPuzzle(final_puzzle)
+    check_puzzle.check()
+    game = Puzzle(final_puzzle)
+    tree_game = GameTree(game)
     tok = perf_counter()
     solution = tree_game.solve()
     tic = perf_counter()
@@ -45,9 +50,10 @@ def cli_to_file():
     print("CLI->FILE")
     final_puzzle = accept_from_user()
     print("Wait...\n")
-    check_puzzle = puzzle.CheckPuzzle(final_puzzle)
-    game = puzzle.Puzzle(final_puzzle)
-    tree_game = puzzle.GameTree(game)
+    check_puzzle = CheckPuzzle(final_puzzle)
+    check_puzzle.check()
+    game = Puzzle(final_puzzle)
+    tree_game = GameTree(game)
     solution = tree_game.solve()
     out_file = input("Input filename: ")
     str_solution = 'SOLUTION:\n'
@@ -65,9 +71,10 @@ def file_to_cli():
     filename = input("Input filename: ")
     final_puzzle = work_with_file.read_puzzle(filename)
     print("Wait...\n")
-    check_puzzle = puzzle.CheckPuzzle(final_puzzle)
-    game = puzzle.Puzzle(final_puzzle)
-    tree_game = puzzle.GameTree(game)
+    check_puzzle = CheckPuzzle(final_puzzle)
+    check_puzzle.check()
+    game = Puzzle(final_puzzle)
+    tree_game = GameTree(game)
     solution = tree_game.solve()
     print('Solution:\n')
     step = -1
@@ -82,9 +89,10 @@ def file_to_file():
     filename = input("Input filename to read: ")
     final_puzzle = work_with_file.read_puzzle(filename)
     print("Wait...\n")
-    check_puzzle = puzzle.CheckPuzzle(final_puzzle)
-    game = puzzle.Puzzle(final_puzzle)
-    tree_game = puzzle.GameTree(game)
+    check_puzzle = CheckPuzzle(final_puzzle)
+    check_puzzle.check()
+    game = Puzzle(final_puzzle)
+    tree_game = GameTree(game)
     solution = tree_game.solve()
     out_file = input("Input filename to write: ")
     str_solution = 'SOLUTION:\n'
