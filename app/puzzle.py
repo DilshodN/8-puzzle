@@ -24,6 +24,12 @@ class Puzzle:
                 if matrix[i][j] == value:
                     return i, j
 
+    def get_zero_index(self):
+        for i in range(self.len):
+            for j in range(self.len):
+                if self.board[i][j] == 0:
+                    return i, j
+
     def manhattan(self):
         distance = 0
         for i in range(self.len):
@@ -34,7 +40,7 @@ class Puzzle:
         return distance
 
     def list_of_possible_moves(self) -> list:
-        x, y = self.get_index(self.board, 0)
+        x, y = self.get_zero_index()
         possible_moves = []
         if x > 0:
             possible_moves.append((x - 1, y))

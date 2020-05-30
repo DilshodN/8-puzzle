@@ -5,6 +5,7 @@ from time import perf_counter
 from GameTree import *
 from CheckPuzzle import *
 import gui
+import gui_version2
 
 
 # noinspection SpellCheckingInspection
@@ -108,3 +109,7 @@ def file_to_file():
 
 def GUI():
     gui.main()
+
+
+def GUI_with_tips():
+    gui_version2.main()

@@ -21,6 +21,12 @@ class Node:
             node = node.parent
         yield from reversed(p)
 
+    def list_path(self):
+        list_path = []
+        for state in self.path:
+            list_path.append(state.board)
+        return list_path[1:]
+
     def solved(self) -> bool:
         return self.puzzle.solved()
 

@@ -11,13 +11,14 @@ def main():
               '[2] -> from CLI to FILE\n'
               '[3] -> from FILE to CLI\n'
               '[4] -> from FILE to FILE\n'
-              '[5] -> play GUI version')
+              '[5] -> play GUI version\n'
+              '[6] -> play GUI version with tips')
         try:
             mode = int(input('Input mode: '))
         except:
             raise TypeError("Error Input")
-        if mode > 5 or mode < 1:
-            raise Exception("Mode should be 1, 2, 3, 4 or 5")
+        if mode > 6 or mode < 1:
+            raise Exception("Mode should be 1, 2, 3, 4, 5 or 6")
         if mode == 1:
             work_with_user.cli_to_cli()
         if mode == 2:
@@ -28,6 +29,8 @@ def main():
             work_with_user.file_to_file()
         if mode == 5:
             work_with_user.GUI()
+        if mode == 6:
+            work_with_user.GUI_with_tips()
 
         again = input("\nwant to continue ?\n"
                       "y/n: ")
