@@ -1,4 +1,4 @@
-\# 8-puzzle
+# 8-puzzle
 
 ## Project for OPK 2020
 

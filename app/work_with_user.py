@@ -1,18 +1,18 @@
-# ------------------ ДОРАБОТАТЬ!!!чтобы было красиво
-
 from math import sqrt
 import puzzle
 import work_with_file
 from time import perf_counter
 from GameTree import *
 from CheckPuzzle import *
+import gui
 
 
+# noinspection SpellCheckingInspection
 def accept_from_user():
     print("Print empty space as '0'")
-    first_line = input("Enter 1-st line of a puzzle:\n").split(" ")  # ['5', '8', '0']
-    second_line = input("Enter 2-nd line of a puzzle:\n").split(" ")  # ['7', '6', '1']
-    third_line = input("Enter 3-rd line of a puzzle:\n").split(" ")  # ['3', '2', '4']
+    first_line = input("Enter 1-st line of a puzzle:\n").split(" ")
+    second_line = input("Enter 2-nd line of a puzzle:\n").split(" ")
+    third_line = input("Enter 3-rd line of a puzzle:\n").split(" ")
     input_puzzle = first_line + second_line + third_line
     int_puzzle = list(map(int, input_puzzle))
     lenght = len(int_puzzle)
@@ -104,3 +104,7 @@ def file_to_file():
     str_solution += 'steps:' + str(step)
     work_with_file.write_puzzle(out_file, str_solution)
     print('\nSUCCESS\n')
+
+
+def GUI():
+    gui.main()

@@ -9,6 +9,11 @@ class CheckPuzzle:
                          [4, 5, 6],
                          [7, 8, 0]]
 
+    def bool_check(self):
+        if not self.is_valid() or not self.is_solvable():
+            return False
+        return True
+
     def check(self):
         if not self.is_valid():
             raise Exception("Invalid puzzle")
