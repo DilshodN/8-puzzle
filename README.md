@@ -5,3 +5,5 @@
 *script solves puzzle 3x3*
 
 ***link: https://coursera.cs.princeton.edu/algs4/assignments/8puzzle/specification.php***
+
+***You have to install PIL module***
