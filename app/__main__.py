@@ -2,6 +2,9 @@ import work_with_user
 
 
 def main():
+    """
+    MAIN function!
+    """
     flag = True
     print("\nHello!\n"
           'This is 8-puzzle python script')
@@ -11,14 +14,13 @@ def main():
               '[2] -> from CLI to FILE\n'
               '[3] -> from FILE to CLI\n'
               '[4] -> from FILE to FILE\n'
-              '[5] -> play GUI version\n'
-              '[6] -> play GUI version with tips')
+              '[5] -> play GUI version\n')
         try:
             mode = int(input('Input mode: '))
         except:
             raise TypeError("Error Input")
         if mode > 6 or mode < 1:
-            raise Exception("Mode should be 1, 2, 3, 4, 5 or 6")
+            raise Exception("Mode should be 1, 2, 3, 4 or 5")
         if mode == 1:
             work_with_user.cli_to_cli()
         if mode == 2:
@@ -28,8 +30,6 @@ def main():
         if mode == 4:
             work_with_user.file_to_file()
         if mode == 5:
-            work_with_user.GUI()
-        if mode == 6:
             work_with_user.GUI_with_tips()
 
         again = input("\nwant to continue ?\n"

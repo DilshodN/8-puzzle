@@ -4,30 +4,38 @@ import work_with_file
 from time import perf_counter
 from GameTree import *
 from CheckPuzzle import *
-import gui
 import gui_version2
 
 
 # noinspection SpellCheckingInspection
-def accept_from_user():
+def accept_from_user() -> list:
+    """
+    Gets from user 9 numbers and game board
+    """
     print("Print empty space as '0'")
     first_line = input("Enter 1-st line of a puzzle:\n").split(" ")
     second_line = input("Enter 2-nd line of a puzzle:\n").split(" ")
     third_line = input("Enter 3-rd line of a puzzle:\n").split(" ")
     input_puzzle = first_line + second_line + third_line
-    int_puzzle = list(map(int, input_puzzle))
-    lenght = len(int_puzzle)
-    final_puzzle = []
-    m = 0
-    n = int(sqrt(lenght))
-    for i in range(int(sqrt(lenght))):
-        final_puzzle.append(int_puzzle[m:n])
-        m = n
-        n += int(sqrt(lenght))
-    return final_puzzle
+    try:
+        int_puzzle = list(map(int, input_puzzle))
+        lenght = len(int_puzzle)
+        final_puzzle = []
+        m = 0
+        n = int(sqrt(lenght))
+        for i in range(int(sqrt(lenght))):
+            final_puzzle.append(int_puzzle[m:n])
+            m = n
+            n += int(sqrt(lenght))
+        return final_puzzle
+    except:
+        raise Exception("Invalid input")
 
 
 def cli_to_cli():
+    """
+    CLI-CLI interface
+    """
     print("CLI->CLI")
     final_puzzle = accept_from_user()
     print("Wait...\n")
@@ -48,6 +56,9 @@ def cli_to_cli():
 
 
 def cli_to_file():
+    """
+    CLI-FILE interface
+    """
     print("CLI->FILE")
     final_puzzle = accept_from_user()
     print("Wait...\n")
@@ -68,6 +79,9 @@ def cli_to_file():
 
 
 def file_to_cli():
+    """
+    FILE-CLI interface
+    """
     print("FILE->CLI")
     filename = input("Input filename: ")
     final_puzzle = work_with_file.read_puzzle(filename)
@@ -86,6 +100,9 @@ def file_to_cli():
 
 
 def file_to_file():
+    """
+    FILE-FILE interface
+    """
     print("FILE->FILE")
     filename = input("Input filename to read: ")
     final_puzzle = work_with_file.read_puzzle(filename)
@@ -107,9 +124,12 @@ def file_to_file():
     print('\nSUCCESS\n')
 
 
-def GUI():
-    gui.main()
-
-
 def GUI_with_tips():
+    """
+    gui version 2
+    """
+    text = 'press <SPACE> to do a "tip" move\n' \
+           'press <s> to shuffle\n' \
+           'press <q> to quit'
+    print(text)
     gui_version2.main()

@@ -2,6 +2,9 @@ from math import sqrt
 
 
 def read_puzzle(filename: str) -> list:
+    """
+    reads from file and returns game-board
+    """
     arr_puz = []
     with open(filename, 'r') as file:
         try:
@@ -28,5 +31,8 @@ def read_puzzle(filename: str) -> list:
 
 
 def write_puzzle(to_file: str, solution: str):
+    """
+    writes a solution to the file
+    """
     with open(to_file, "w") as file:
         file.write(solution)

@@ -4,7 +4,7 @@ from CheckPuzzle import *
 from GameTree import *
 from PIL import Image, ImageTk
 import random
-
+import time
 
 IMAGES = {1: 'tile1.png', 2: 'tile2.png', 3: 'tile3.png',
           4: 'tile4.png', 5: 'tile5.png', 6: 'tile6.png',
@@ -12,7 +12,13 @@ IMAGES = {1: 'tile1.png', 2: 'tile2.png', 3: 'tile3.png',
 
 
 class App:
+    """
+    APPLICATION CLASS
+    """
     def __init__(self, master, puzzle: Puzzle):
+        """
+        Constructor
+        """
         self.master = master
         self.canvas = tk.Canvas(master, width=480, height=480)
         self.canvas.grid()
@@ -22,8 +28,12 @@ class App:
         self.memory = []
         self.create_events()
         self.update()
+        self.shuffle(object)
 
     def create_events(self):
+        """
+        create events
+        """
         self.canvas.bind_all('<KeyPress-Up>', self.slide)
         self.canvas.bind_all('<KeyPress-Down>', self.slide)
         self.canvas.bind_all('<KeyPress-Left>', self.slide)
@@ -32,21 +42,39 @@ class App:
         self.canvas.bind_all('<s>', self.shuffle)
         self.canvas.bind_all('<h>', self.help)
         self.canvas.bind_all('<q>', lambda x: self.master.quit())
+        self.canvas.bind_all('<k>', self.absolute_solve)
+
+    def absolute_solve(self, event):
+        """
+        PRESS <K> -> solution of a board
+        """
+        while not self.check_state():
+            self.solve(object)
 
     def help(self, event):
+        """
+        PRESS <H> -> HELP
+        """
         text = 'press <SPACE> to do a "tip" move\n' \
                'press <s> to shuffle\n' \
                'press <q> to quit'
         print(text)
 
     def shuffle(self, event):
+        """
+        PRESS <S> - SHUFFLE
+        """
         for _ in range(100):
             p_moves = self.puzzle.list_of_possible_moves()
             r_move = random.choice(p_moves)
             self.puzzle = Puzzle(self.puzzle.move(r_move))
         self.update()
+        self.steps = 0
 
     def solve(self, event):
+        """
+        PRESS <SPACE> -> do a 'tip' move
+        """
         game_tree = GameTree(self.puzzle)
         solution = game_tree.solve()
         list_solution = []
@@ -55,13 +83,18 @@ class App:
         to = self.tip(list_solution[1:])
         self._slide(to)
 
-    def tip(self, next_board):
+    def tip(self, next_board)->tuple:
+        """
+        returns tuple of a best move
+        """
         if len(next_board):
             x0, y0 = Puzzle(next_board[0]).get_zero_index()
             return x0, y0
-        self.check_state()
 
     def slide(self, event):
+        """
+        slide puzzle if it is possible
+        """
         legal_moves = self.pieces_around()
         directions = {'up': None,
                       'down': None,
@@ -79,6 +112,10 @@ class App:
             self._slide(directions['right'])
 
     def _slide(self, to):
+        """
+        sliding
+        """
+        self.check_state()
         try:
             new_board = self.puzzle.move(to)
             self.puzzle = Puzzle(new_board)
@@ -87,7 +124,10 @@ class App:
         except:
             pass
 
-    def pieces_around(self):
+    def pieces_around(self)->list:
+        """
+        returns directions and tuples of possible move
+        """
         p_moves = self.puzzle.list_of_possible_moves()
         x0, y0 = self.puzzle.get_zero_index()
         possible_directions = []
@@ -103,15 +143,24 @@ class App:
         return possible_directions
 
     def check_state(self):
+        """
+        Is puzzle solved?
+        """
         if self.puzzle.solved():
             text = 'Congrats, you achieved in %d moves' % self.steps
             print(text)
             return True
 
     def erase(self):
+        """
+        Erase before update
+        """
         self.memory = []
 
     def convert_to_1d(self):
+        """
+        2d to 1d matrix
+        """
         one_dimension_matrix = []
         for row in range(self.len):
             for column in range(self.len):
@@ -120,6 +169,9 @@ class App:
 
     # noinspection PyShadowingBuiltins
     def update(self):
+        """
+        update of a screen game
+        """
         self.erase()
         state = self.convert_to_1d()
         images = []
@@ -146,6 +198,7 @@ class App:
 
 def main():
     root = tk.Tk()
+    root.title('8-puzzle')
     game = Puzzle([[8, 5, 2],
                    [7, 3, 1],
                    [6, 4, 0]])
