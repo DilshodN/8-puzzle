@@ -27,7 +27,7 @@ class Puzzle:
             output += '\n'
         return output
 
-    def get_index(self, matrix, value) -> tuple:
+    def get_index(self, matrix: list, value: int) -> tuple:
         """
         returns indexes of element of a matrix
         """

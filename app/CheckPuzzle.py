@@ -6,17 +6,14 @@ class CheckPuzzle:
         """
         Constructor
         """
-        try:
-            self.puzzle = puzzle
-            self.len = len(puzzle)
-            if self.len == 3:
-                self.set = {i for i in range(9)}
-                self.set.add(0)
-                self.goal = [[1, 2, 3],
-                             [4, 5, 6],
-                             [7, 8, 0]]
-        except:
-            raise Exception("Invalid input")
+        self.puzzle = puzzle
+        self.len = len(puzzle)
+        if self.len == 3:
+            self.set = {i for i in range(9)}
+            self.set.add(0)
+            self.goal = [[1, 2, 3],
+                         [4, 5, 6],
+                         [7, 8, 0]]
 
     def bool_check(self)->bool:
         """

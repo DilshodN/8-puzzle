@@ -17,7 +17,7 @@ def main():
               '[5] -> play GUI version\n')
         try:
             mode = int(input('Input mode: '))
-        except:
+        except TypeError:
             raise TypeError("Error Input")
         if mode > 6 or mode < 1:
             raise Exception("Mode should be 1, 2, 3, 4 or 5")
