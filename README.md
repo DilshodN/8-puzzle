@@ -12,4 +12,4 @@ Start 'python3 __main__.py'
 
 ![image](cli_interface.png)
 
-![imgage](gui.png)
+![imgage](https://github.com/DilshodN/8-puzzle/blob/master/cli_interface.PNG)
