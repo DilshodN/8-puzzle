@@ -11,3 +11,5 @@
 Start 'python3 __main__.py'
 
 ![image](cli_interface.png)
+
+![imgage](gui.png)
