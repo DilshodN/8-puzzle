@@ -28,7 +28,7 @@ class App:
         self.memory = []
         self.create_events()
         self.update()
-        self.shuffle(object)
+        self.shuffle(None)
 
     def create_events(self):
         """
@@ -202,7 +202,7 @@ def main():
     game = Puzzle([[8, 5, 2],
                    [7, 3, 1],
                    [6, 4, 0]])
-    app = App(root, game)
+    App(root, game)
     root.mainloop()
 
 
