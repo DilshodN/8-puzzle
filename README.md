@@ -8,7 +8,7 @@
 
 ***You have to install Pillow module***
 
-Start python3 __ main __ .py
+Start: ```python3 __ main __ .py```
 
 ![cli](https://github.com/DilshodN/8-puzzle/blob/master/cli_interface.PNG)
 
