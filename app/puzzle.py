@@ -74,9 +74,6 @@ class Puzzle:
         return possible_moves
 
     def move(self, to: tuple) -> list:
-        """
-        returns moved board
-        """
         moving_board = deepcopy(self.board)
         x, y = self.get_index(self.board, 0)
         i, j = to
